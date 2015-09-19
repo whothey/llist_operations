@@ -17,4 +17,6 @@ clean:
 debug:
 	valgrind ./$(MAIN_EXEC)
 
+test: main debug
+
 .PHONY: llist
