@@ -28,5 +28,9 @@ int main()
         print_list_as_numeric_set(lists[i]);
     }
 
+    // Free alloc'd bytes
+    for (i = 0; i < qtd; i++) list_free_all(&lists[i]);
+    free(lists);
+
     return 0;
 }

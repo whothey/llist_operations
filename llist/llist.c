@@ -86,6 +86,22 @@ void list_insert_ordered(llist** list, int n)
     return;
 }
 
+void list_free_element(llist *elem) { free(elem); }
+
+void list_free_all(llist** list)
+{
+    llist *aux = *list;
+
+    while (*list != NULL) {
+        aux   = *list;
+        *list = (*list)->next;
+
+        list_free_element(aux);
+    }
+
+    *list = NULL;
+}
+
 void print_list(llist *list)
 {
     llist *aux = list;

@@ -44,7 +44,7 @@ void list_free_element(llist* elem);
 /**
  * Free all elements within a list
  */
-void list_free_all(llist* list);
+void list_free_all(llist** list);
 
 /**
  * Print all elements of the list
