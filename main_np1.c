@@ -25,7 +25,7 @@ int main()
             if (getchar() == '\n') break;
         }
 
-        print_list(lists[i]);
+        print_list_as_numeric_set(lists[i]);
     }
 
     return 0;

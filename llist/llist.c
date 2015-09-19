@@ -76,7 +76,8 @@ void list_insert_ordered(llist** list, int n)
         return;
     }
 
-    // While exists a next record and its value is higher than the current value to be inserted
+    // While exists a next record and
+    // its value is higher than the current value to be inserted
     while (aux->next != NULL && aux->next->n < n && (aux = aux->next));
 
     new->next = aux->next;
@@ -97,4 +98,25 @@ void print_list(llist *list)
 
     // Prints the last record
     printf("%d\n", aux->n);
+}
+
+void print_list_as_numeric_set(llist *list)
+{
+    llist *aux = list;
+
+    if (aux == NULL) {
+        printf("{}\n");
+
+        return;
+    }
+
+    printf("{ ");
+    while (aux->next != NULL) {
+        printf("%d, ", aux->n);
+
+        aux = aux->next;
+    }
+
+    // Prints the last record
+    printf("%d }\n", aux->n);
 }

@@ -50,3 +50,8 @@ void list_free_all(llist* list);
  * Print all elements of the list
  */
 void print_list(llist* list);
+
+/**
+ * Print all elements of the list as a numeric set
+ */
+void print_list_as_numeric_set(llist* list);
