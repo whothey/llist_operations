@@ -4,9 +4,15 @@ typedef struct list_node {
 } llist;
 
 /**
- * Initialize the llist
+ * Starts the list pointers with NULL
  */
-void init_list(llist* list);
+void start_list(llist** list);
+
+/**
+ * Initialize the llist with default values
+ * Also prevent Memcheck to be angry with pointers without initilization
+ */
+void init_list_node(llist** list);
 
 /**
  * Insert an element "n" at the beggining of the "list"

@@ -2,33 +2,32 @@
 #include <stdio.h>
 #include "llist.h"
 
-void init_list(llist* list) { list = list->next = NULL; }
+void start_list(llist** list) { *list = NULL; }
+
+void init_list_node(llist** list) {
+    *list = (llist *) malloc(sizeof(llist));
+    (*list)->next = NULL;
+}
 
 void list_insert_beg(llist** list, int n)
 {
-    llist *new = (llist *) malloc(sizeof(llist));
+    llist *new = NULL;
 
-    if (new == NULL) return NULL; // Can't malloc!
+    init_list_node(&new);
 
-    init_list(new);
     new->n = n;
-    new->next = (*list);
+    new->next = *list;
 
-    list = &new;
+    *list = new;
 }
 
 void list_insert_after(llist** list, int n, int v)
 {
-    llist *new = (llist *) malloc(sizeof(llist)), *iterator;
-
-    // Can't malloc!
-    if (new == NULL) return NULL;
-
-    init_list(new);
+    llist *new = NULL, *iterator = *list;
 
     // Create the new list node
+    init_list_node(&new);
     new->n = n;
-    iterator = *list;
 
     do {
         if (iterator->next == NULL || iterator->n == v) {
@@ -45,20 +44,33 @@ void list_insert_after(llist** list, int n, int v)
 void list_insert_end(llist** list, int n)
 {
     llist *aux = *list;
-    llist *new = (llist *) malloc(sizeof(llist));
+    llist *new = NULL;
 
-    init_list(new);
+    init_list_node(&new);
     new->n = n;
 
-    if (list == NULL) {
+    if (*list == NULL) {
         *list = new;
 
         return;
     }
 
     while (aux->next != NULL && (aux = aux->next));
-
     aux->next = new;
 
     return;
+}
+
+void print_list(llist *list)
+{
+    llist *aux = list;
+
+    while (aux->next != NULL) {
+        printf("%d\n", aux->n);
+
+        aux = aux->next;
+    }
+
+    // Prints the last record
+    printf("%d\n", aux->n);
 }
