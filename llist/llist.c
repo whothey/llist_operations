@@ -61,6 +61,30 @@ void list_insert_end(llist** list, int n)
     return;
 }
 
+void list_insert_ordered(llist** list, int n)
+{
+    llist *aux = *list;
+    llist *new = NULL;
+
+    // Create the element
+    init_list_node(&new);
+    new->n = n;
+
+    if (*list == NULL) {
+        *list = new;
+
+        return;
+    }
+
+    // While exists a next record and its value is higher than the current value to be inserted
+    while (aux->next != NULL && aux->next->n < n && (aux = aux->next));
+
+    new->next = aux->next;
+    aux->next = new;
+
+    return;
+}
+
 void print_list(llist *list)
 {
     llist *aux = list;

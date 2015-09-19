@@ -32,6 +32,11 @@ void list_insert_after(llist** list, int n, int v);
 void list_insert_end(llist** list, int n);
 
 /**
+ * Insert an element "n" in list with ascending order
+ */
+void list_insert_ordered(llist** list, int n);
+
+/**
  * Free a single element
  */
 void list_free_element(llist* elem);

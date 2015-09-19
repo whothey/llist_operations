@@ -19,8 +19,8 @@ int main()
     for (i = 0; i < qtd; i++) {
         printf("Informe o %dº conjunto: ", i + 1);
 
-        while ((read_terms = scanf("%d", &aux)) > 0) {
-            list_insert_end(&lists[i], aux);
+        while ((read_terms = scanf(" %d", &aux)) > 0) {
+            list_insert_ordered(&lists[i], aux);
 
             if (getchar() == '\n') break;
         }
