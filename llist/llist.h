@@ -12,6 +12,12 @@ typedef struct list_node {
 void start_list(llist** list);
 
 /**
+ * Creates a copy of the provided list and returns the
+ * pointer to the new list
+ */
+llist* list_copy(llist *list);
+
+/**
  * Initialize the llist with default values
  * Also prevent Memcheck to be angry with pointers without initilization
  */

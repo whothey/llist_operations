@@ -9,6 +9,18 @@ void init_list_node(llist** list) {
     (*list)->next = NULL;
 }
 
+llist* list_copy(llist *list)
+{
+    llist *copy, *iterator;
+
+    start_list(&copy);
+
+    for (iterator = list; iterator != NULL; iterator = iterator->next)
+        list_insert_end(&copy, iterator->n);
+
+    return copy;
+}
+
 void list_insert_beg(llist** list, int n)
 {
     llist *new = NULL;
