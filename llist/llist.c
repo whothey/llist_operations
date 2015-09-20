@@ -61,10 +61,11 @@ void list_insert_end(llist** list, int n)
     return;
 }
 
-void list_insert_ordered(llist** list, int n)
+void list_insert_ordered(llist** list, int n, short allow_repeat)
 {
     llist *aux = *list;
     llist *new = NULL;
+    short repeated = 0;
 
     // Create the element
     init_list_node(&new);
@@ -76,10 +77,40 @@ void list_insert_ordered(llist** list, int n)
         return;
     }
 
+    // If the first number is higher than the one to be inserted
+    // swap the list start
+    if (aux->n > n) {
+        new->next = aux;
+        *list = new;
+
+        return;
+    }
+
     // While exists a next record and
     // its value is higher than the current value to be inserted
-    while (aux->next != NULL && aux->next->n < n && (aux = aux->next));
+    while (aux != NULL) {
+        // Checks if the number is repeated
+        if (!allow_repeat && aux->n == n) { repeated = 1; break; }
+        else if (aux->next != NULL && aux->next->n > n) {
+            // Swap values if next number is higher than the current
+            new->next = aux->next;
+            aux->next = new;
 
+            return;
+        }
+
+        // Mantain the aux pointer still valid to next operations
+        if (aux->next == NULL) break;
+        else aux = aux->next;
+    }
+
+    // Frees the created element and don't add it to the list
+    if (repeated) {
+        list_free_element(new);
+        return;
+    }
+
+    // Appends to the list
     new->next = aux->next;
     aux->next = new;
 

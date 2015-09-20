@@ -20,7 +20,7 @@ int main()
         printf("Informe o %dº conjunto: ", i + 1);
 
         while ((read_terms = scanf(" %d", &aux)) > 0) {
-            list_insert_ordered(&lists[i], aux);
+            list_insert_ordered(&lists[i], aux, DISALLOW_REPEAT);
 
             if (getchar() == '\n') break;
         }

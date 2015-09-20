@@ -1,3 +1,6 @@
+#define ALLOW_REPEAT 1
+#define DISALLOW_REPEAT 0
+
 typedef struct list_node {
     int n;
     struct list_node* next;
@@ -32,9 +35,10 @@ void list_insert_after(llist** list, int n, int v);
 void list_insert_end(llist** list, int n);
 
 /**
- * Insert an element "n" in list with ascending order
+ * Insert an element "n" in list with ascending order,
+ * also has a flag that defines if the element can repeat within the list
  */
-void list_insert_ordered(llist** list, int n);
+void list_insert_ordered(llist** list, int n, short allow_repeat);
 
 /**
  * Free a single element
