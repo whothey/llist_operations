@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "llist/llist.h"
+#include "llist/llist_op.h"
 
 int main()
 {
-    int unsigned qtd, read_terms;
-    int i, aux;
-    llist **lists = NULL;
+    int unsigned qtd;
+    int i, term;
+    llist **lists = NULL; // Main lists pointers
+    // Result pointers
+    llist *result_diff = NULL, *result_inters, *result_union = NULL;
+    llist *aux = NULL; // Auxiliar pointer
 
     printf("Informe a quantidade de conjuntos para alocação: ");
     scanf("%u", &qtd);
@@ -19,18 +23,52 @@ int main()
     for (i = 0; i < qtd; i++) {
         printf("Informe o %dº conjunto: ", i + 1);
 
-        while ((read_terms = scanf(" %d", &aux)) > 0) {
-            list_insert_ordered(&lists[i], aux, DISALLOW_REPEAT);
+        while (scanf(" %d", &term) > 0) {
+            list_insert_ordered(&lists[i], term, DISALLOW_REPEAT);
 
             if (getchar() == '\n') break;
         }
 
+        printf("O conjunto inserido foi: ");
         print_list_as_numeric_set(lists[i]);
+
+        if (i == 0) {
+            result_diff   = list_copy(lists[i]);
+            result_inters = list_copy(lists[i]);
+            result_union  = list_copy(lists[i]);
+        } else {
+            aux = list_diff(result_diff, lists[i]);
+            list_free_all(&result_diff);
+            result_diff = aux;
+            aux = NULL;
+
+            aux = list_intersect(result_inters, lists[i]);
+            list_free_all(&result_inters);
+            result_inters = aux;
+            aux = NULL;
+
+            aux = list_union(result_union, lists[i]);
+            list_free_all(&result_union);
+            result_union = aux;
+            aux = NULL;
+        }
     }
+
+    printf("O conjunto diferença é: ");
+    print_list_as_numeric_set(result_diff);
+
+    printf("O conjunto união é: ");
+    print_list_as_numeric_set(result_union);
+
+    printf("O conjunto intersecção é: ");
+    print_list_as_numeric_set(result_inters);
 
     // Free alloc'd bytes
     for (i = 0; i < qtd; i++) list_free_all(&lists[i]);
     free(lists);
+    list_free_all(&result_diff);
+    list_free_all(&result_inters);
+    list_free_all(&result_union);
 
     return 0;
 }
