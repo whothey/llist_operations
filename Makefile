@@ -19,4 +19,7 @@ debug:
 
 test: main debug
 
+run: main
+	./$(MAIN_EXEC)
+
 .PHONY: llist
