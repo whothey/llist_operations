@@ -3,10 +3,20 @@
 #include "llist/llist.h"
 #include "llist/llist_op.h"
 
+#define CLEAR_NEWLINE() while(getchar() != '\n');
+
+int say_goodbye()
+{
+    printf("Done for now. Bye!\n");
+
+    return 0;
+}
+
 int main()
 {
     int unsigned qtd;
     int i, term;
+    char c;
     llist **lists = NULL; // Main lists pointers
     // Result pointers
     llist *result_diff = NULL, *result_inters, *result_union = NULL;
@@ -14,6 +24,9 @@ int main()
 
     printf("Informe a quantidade de conjuntos para alocação: ");
     scanf("%u", &qtd);
+    CLEAR_NEWLINE();
+
+    if (qtd == 0) return say_goodbye();
 
     lists = (llist **) malloc(sizeof(llist *) * qtd);
     for (i = 0; i < qtd; i++) start_list(&lists[i]);
@@ -23,7 +36,9 @@ int main()
     for (i = 0; i < qtd; i++) {
         printf("Informe o %dº conjunto: ", i + 1);
 
-        while (scanf(" %d", &term) > 0) {
+        while ((c = getchar()) != '\n') {
+            ungetc(c, stdin);
+            scanf(" %d", &term);
             list_insert_ordered(&lists[i], term, DISALLOW_REPEAT);
 
             if (getchar() == '\n') break;
@@ -70,5 +85,5 @@ int main()
     list_free_all(&result_inters);
     list_free_all(&result_union);
 
-    return 0;
+    return say_goodbye();
 }
