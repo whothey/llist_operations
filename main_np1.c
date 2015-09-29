@@ -69,6 +69,9 @@ int main()
         }
     }
 
+    printf("\n===============================\n");
+    printf("Resultados:");
+    printf("\n===============================\n");
     printf("O conjunto diferença é: ");
     print_list_as_numeric_set(result_diff);
 

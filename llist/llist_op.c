@@ -12,10 +12,7 @@ llist* list_diff(llist* diff1, llist* diff2)
 
     for (iter = diff1; iter != NULL; iter = iter->next) {
         for (comp = diff2, exists = 0; comp != NULL; comp = comp->next) {
-            if (iter->n == comp->n) {
-                exists = 1;
-                break;
-            }
+            if (iter->n == comp->n) { exists = 1; break; }
         }
 
         if (!exists) list_insert_ordered(&result, iter->n, DISALLOW_REPEAT);
@@ -50,10 +47,7 @@ llist* list_intersect(llist* list1, llist* list2)
 
     for (iter = list1; iter != NULL; iter = iter->next) {
         for (comp = list2, exists = 0; comp != NULL; comp = comp->next) {
-            if (iter->n == comp->n) {
-                exists = 1;
-                break;
-            }
+            if (iter->n == comp->n) { exists = 1; break; }
         }
 
         if (exists) list_insert_ordered(&result, iter->n, DISALLOW_REPEAT);
